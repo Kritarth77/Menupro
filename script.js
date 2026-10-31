@@ -146,7 +146,18 @@
       digitalMenuSubtitle: "Freshly prepared favorites, made for every appetite.",
       availableToOrder: "Available to order",
       dailySpecial: "Daily special",
-      dailySpecialDescription: "A fresh favorite selected from today's available menu."
+      dailySpecialDescription: "A fresh favorite selected from today's available menu.",
+      twelvePercentThisMonth: "12% this month",
+      acrossYourMenu: "Across your menu",
+      needsYourAttention: "Needs your attention",
+      topSellerThisWeek: "Top seller this week",
+      salesPerformance: "Sales performance",
+      popularItemsThisWeek: "Popular Items This Week",
+      viewAll: "View all",
+      stockMonitoring: "Stock monitoring",
+      inventoryAlerts: "Inventory Alerts",
+      manage: "Manage",
+      categoryDistribution: "Category Distribution"
     },
 
     es: {
@@ -194,7 +205,18 @@
       digitalMenuSubtitle: "Favoritos recién preparados para todos los gustos.",
       availableToOrder: "Disponible para pedir",
       dailySpecial: "Especial del día",
-      dailySpecialDescription: "Un favorito fresco seleccionado del menú disponible de hoy."
+      dailySpecialDescription: "Un favorito fresco seleccionado del menú disponible de hoy.",
+      twelvePercentThisMonth: "12% este mes",
+      acrossYourMenu: "En todo tu menú",
+      needsYourAttention: "Necesita tu atención",
+      topSellerThisWeek: "Más vendido esta semana",
+      salesPerformance: "Rendimiento de ventas",
+      popularItemsThisWeek: "Platos populares de esta semana",
+      viewAll: "Ver todo",
+      stockMonitoring: "Supervisión de stock",
+      inventoryAlerts: "Alertas de inventario",
+      manage: "Administrar",
+      categoryDistribution: "Distribución por categoría"
     },
 
     fr: {
@@ -242,7 +264,18 @@
       digitalMenuSubtitle: "Des favoris fraîchement préparés pour tous les goûts.",
       availableToOrder: "Disponible à la commande",
       dailySpecial: "Suggestion du jour",
-      dailySpecialDescription: "Un favori frais sélectionné parmi le menu disponible aujourd'hui."
+      dailySpecialDescription: "Un favori frais sélectionné parmi le menu disponible aujourd'hui.",
+      twelvePercentThisMonth: "12 % ce mois-ci",
+      acrossYourMenu: "Dans tout votre menu",
+      needsYourAttention: "Nécessite votre attention",
+      topSellerThisWeek: "Meilleure vente de la semaine",
+      salesPerformance: "Performance des ventes",
+      popularItemsThisWeek: "Plats populaires cette semaine",
+      viewAll: "Voir tout",
+      stockMonitoring: "Suivi des stocks",
+      inventoryAlerts: "Alertes d'inventaire",
+      manage: "Gérer",
+      categoryDistribution: "Répartition par catégorie"
     }
   };
 
@@ -262,29 +295,33 @@
       .replaceAll("'", "&#039;");
   }
 
+  function createId(prefix) {
+    return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  }
+
   function getData(key) {
     if (!STORAGE_KEYS.includes(key)) {
       throw new Error(`Unsupported MenuPro data key: ${key}`);
     }
 
-    const stored = window.localStorage.getItem(key);
+    const storedValue = window.localStorage.getItem(key);
 
-    if (stored === null) {
+    if (storedValue === null) {
       const initialValue = clone(defaultData[key]);
       saveData(key, initialValue);
       return initialValue;
     }
 
     try {
-      const parsed = JSON.parse(stored);
+      const parsedValue = JSON.parse(storedValue);
 
-      if (!Array.isArray(parsed)) {
-        throw new TypeError(`Stored ${key} data must be an array.`);
+      if (!Array.isArray(parsedValue)) {
+        throw new TypeError(`Stored "${key}" data is not an array.`);
       }
 
-      return parsed;
+      return parsedValue;
     } catch (error) {
-      console.error(`Invalid localStorage data for ${key}.`, error);
+      console.error(`Invalid localStorage data for "${key}".`, error);
       const restoredValue = clone(defaultData[key]);
       saveData(key, restoredValue);
       return restoredValue;
@@ -297,7 +334,7 @@
     }
 
     if (!Array.isArray(data)) {
-      throw new TypeError(`Data for ${key} must be an array.`);
+      throw new TypeError(`Data for "${key}" must be an array.`);
     }
 
     window.localStorage.setItem(key, JSON.stringify(data));
@@ -305,10 +342,6 @@
 
   function initializeDataStore() {
     STORAGE_KEYS.forEach((key) => getData(key));
-  }
-
-  function createId(prefix) {
-    return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   }
 
   function getCurrentUserRole() {
@@ -383,6 +416,18 @@
     }
   }
 
+  function getDigitalMenuImage(item, index) {
+    const fallbackImages = [
+      "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=80"
+    ];
+
+    return item.image && item.image.startsWith("http")
+      ? item.image
+      : fallbackImages[index % fallbackImages.length];
+  }
+
   function renderCategoriesTable() {
     const tableBody = document.getElementById("categories-table-body");
     const count = document.getElementById("category-count");
@@ -450,10 +495,7 @@
         : "limited";
 
       const dietaryTags = (item.dietary_tags || [])
-        .map(
-          (tag) =>
-            `<span class="dietary-tag">${escapeHtml(getDietaryTagLabel(tag))}</span>`
-        )
+        .map((tag) => `<span class="dietary-tag">${escapeHtml(getDietaryTagLabel(tag))}</span>`)
         .join("");
 
       const row = document.createElement("tr");
@@ -511,9 +553,7 @@
     tableBody.replaceChildren();
 
     inventory.forEach((entry) => {
-      const isLowStock =
-        Number(entry.quantity) <= Number(entry.reorder_level);
-
+      const isLowStock = Number(entry.quantity) <= Number(entry.reorder_level);
       const row = document.createElement("tr");
 
       row.innerHTML = `
@@ -559,7 +599,6 @@
     items.forEach((item) => {
       const discount = Number(item.special_discount_price);
       const hasDiscount = Number.isFinite(discount);
-
       const row = document.createElement("tr");
 
       row.innerHTML = `
@@ -620,18 +659,6 @@
     }
   }
 
-  function getDigitalMenuImage(item, index) {
-    const fallbackImages = [
-      "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=80"
-    ];
-
-    return item.image && item.image.startsWith("http")
-      ? item.image
-      : fallbackImages[index % fallbackImages.length];
-  }
-
   function renderDigitalMenu(categoryId = "all") {
     const menuGrid = document.getElementById("digital-menu-grid");
     const emptyMessage = document.getElementById("digital-menu-empty");
@@ -641,24 +668,19 @@
     }
 
     const items = getData("menuItems");
-    const visibleItems =
-      categoryId === "all"
-        ? items
-        : items.filter((item) => item.category_id === categoryId);
+    const visibleItems = categoryId === "all"
+      ? items
+      : items.filter((item) => item.category_id === categoryId);
 
     menuGrid.replaceChildren();
 
     visibleItems.forEach((item, index) => {
       const card = document.createElement("article");
       const tags = (item.dietary_tags || [])
-        .map(
-          (tag) =>
-            `<span class="dietary-tag">${escapeHtml(getDietaryTagLabel(tag))}</span>`
-        )
+        .map((tag) => `<span class="dietary-tag">${escapeHtml(getDietaryTagLabel(tag))}</span>`)
         .join("");
 
       card.className = "digital-menu-card";
-
       card.innerHTML = `
         <img class="digital-menu-image" src="${escapeHtml(getDigitalMenuImage(item, index))}" alt="${escapeHtml(item.name)}">
         <div class="digital-menu-card-body">
@@ -666,9 +688,7 @@
           <div class="dietary-tags" aria-label="Dietary tags">
             ${tags || '<span class="dietary-tag">Chef special</span>'}
           </div>
-          <p class="digital-menu-description">
-            ${escapeHtml(item.description || "A delicious MenuPro favorite.")}
-          </p>
+          <p class="digital-menu-description">${escapeHtml(item.description || "A delicious MenuPro favorite.")}</p>
           <div class="digital-menu-card-footer">
             <span class="digital-menu-price">$${Number(item.price || 0).toFixed(2)}</span>
             <button class="order-button" type="button" data-order-item="${escapeHtml(item.id)}">
@@ -697,16 +717,11 @@
       return;
     }
 
-    const special = getData("menuItems").find(
-      (item) => item.status === "available"
-    );
+    const special = getData("menuItems").find((item) => item.status === "available");
 
     title.textContent = special?.name || "Chef's choice";
-    description.textContent =
-      special?.description || "No available specials today.";
-    price.textContent = special
-      ? `$${Number(special.price || 0).toFixed(2)}`
-      : "$0.00";
+    description.textContent = special?.description || "No available specials today.";
+    price.textContent = special ? `$${Number(special.price || 0).toFixed(2)}` : "$0.00";
 
     applyLanguage(window.localStorage.getItem("languagePreference") || "en");
   }
@@ -779,15 +794,13 @@
       type: "bar",
       data: {
         labels: analyticsData.categories,
-        datasets: [
-          {
-            label: "Revenue",
-            data: analyticsData.revenue,
-            backgroundColor: ["#fda4af", "#e11d48", "#fb7185"],
-            borderRadius: 6,
-            maxBarThickness: 48
-          }
-        ]
+        datasets: [{
+          label: "Revenue",
+          data: analyticsData.revenue,
+          backgroundColor: ["#fda4af", "#e11d48", "#fb7185"],
+          borderRadius: 6,
+          maxBarThickness: 48
+        }]
       },
       options: {
         responsive: true,
@@ -812,15 +825,13 @@
       type: "doughnut",
       data: {
         labels: analyticsData.popularItems,
-        datasets: [
-          {
-            label: "Orders",
-            data: analyticsData.popularOrders,
-            backgroundColor: ["#e11d48", "#fb7185", "#fda4af", "#fce7f3"],
-            borderColor: "#ffffff",
-            borderWidth: 3
-          }
-        ]
+        datasets: [{
+          label: "Orders",
+          data: analyticsData.popularOrders,
+          backgroundColor: ["#e11d48", "#fb7185", "#fda4af", "#fce7f3"],
+          borderColor: "#ffffff",
+          borderWidth: 3
+        }]
       },
       options: {
         responsive: true,
@@ -882,6 +893,7 @@
 
   function closeItemModal() {
     const modal = document.getElementById("item-modal");
+
     if (modal) {
       modal.hidden = true;
     }
@@ -900,8 +912,7 @@
 
     document.getElementById("category-id").value = category?.id || "";
     document.getElementById("category-name").value = category?.name || "";
-    document.getElementById("category-description").value =
-      category?.description || "";
+    document.getElementById("category-description").value = category?.description || "";
     document.getElementById("category-icon").value = category?.icon || "";
     document.getElementById("category-display-order").value =
       category?.display_order || getData("categories").length + 1;
@@ -913,6 +924,7 @@
 
   function closeCategoryModal() {
     const modal = document.getElementById("category-modal");
+
     if (modal) {
       modal.hidden = true;
     }
@@ -936,6 +948,7 @@
 
   function closeInventoryModal() {
     const modal = document.getElementById("inventory-modal");
+
     if (modal) {
       modal.hidden = true;
     }
@@ -961,6 +974,7 @@
 
   function closePricingModal() {
     const modal = document.getElementById("pricing-modal");
+
     if (modal) {
       modal.hidden = true;
     }
@@ -1022,9 +1036,7 @@
 
     const csv = [headers, ...rows]
       .map((row) =>
-        row
-          .map((value) => `"${String(value).replaceAll('"', '""')}"`)
-          .join(",")
+        row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")
       )
       .join("\r\n");
 
@@ -1034,9 +1046,7 @@
 
     const link = document.createElement("a");
     link.href = objectUrl;
-    link.download = `menupro-inventory-${new Date()
-      .toISOString()
-      .slice(0, 10)}.csv`;
+    link.download = `menupro-inventory-${new Date().toISOString().slice(0, 10)}.csv`;
     link.click();
 
     window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
@@ -1047,8 +1057,7 @@
     const dictionary = translations[selectedLanguage];
 
     document.querySelectorAll("[data-i18n]").forEach((element) => {
-      const key = element.dataset.i18n;
-      const translatedText = dictionary[key];
+      const translatedText = dictionary[element.dataset.i18n];
 
       if (!translatedText) {
         return;
@@ -1124,23 +1133,26 @@
 
     document.body.classList.toggle("dark-theme", isDark);
 
-    if (themeToggle) {
-      const icon = themeToggle.querySelector("i");
-      icon?.classList.toggle("fa-moon", !isDark);
-      icon?.classList.toggle("fa-sun", isDark);
-
-      themeToggle.addEventListener("click", () => {
-        const darkMode = document.body.classList.toggle("dark-theme");
-
-        window.localStorage.setItem(
-          "themePreference",
-          darkMode ? "dark" : "light"
-        );
-
-        icon?.classList.toggle("fa-moon", !darkMode);
-        icon?.classList.toggle("fa-sun", darkMode);
-      });
+    if (!themeToggle) {
+      return;
     }
+
+    const icon = themeToggle.querySelector("i");
+
+    icon?.classList.toggle("fa-moon", !isDark);
+    icon?.classList.toggle("fa-sun", isDark);
+
+    themeToggle.addEventListener("click", () => {
+      const darkMode = document.body.classList.toggle("dark-theme");
+
+      window.localStorage.setItem(
+        "themePreference",
+        darkMode ? "dark" : "light"
+      );
+
+      icon?.classList.toggle("fa-moon", !darkMode);
+      icon?.classList.toggle("fa-sun", darkMode);
+    });
   }
 
   function initializeAuth() {
@@ -1480,33 +1492,19 @@
 
       if (sectionId === "categories") {
         renderCategoriesTable();
-      }
-
-      if (sectionId === "inventory") {
+      } else if (sectionId === "inventory") {
         renderInventoryTable();
-      }
-
-      if (sectionId === "pricing") {
+      } else if (sectionId === "pricing") {
         renderPricingTable();
-      }
-
-      if (sectionId === "analytics") {
+      } else if (sectionId === "analytics") {
         renderCharts();
-      }
-
-      if (sectionId === "reports") {
+      } else if (sectionId === "reports") {
         renderReportSummary();
-      }
-
-      if (sectionId === "versioning") {
+      } else if (sectionId === "versioning") {
         renderVersioningTable();
-      }
-
-      if (sectionId === "items") {
+      } else if (sectionId === "items") {
         renderMenuItemsTable();
-      }
-
-      if (sectionId === "digital-menu") {
+      } else if (sectionId === "digital-menu") {
         renderDigitalMenuCategories();
         renderDigitalMenu();
         renderDailySpecial();
@@ -1539,12 +1537,11 @@
       link.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const href = link.getAttribute("href") || "";
-        const sectionId = href.replace("#", "");
-
+        const sectionId = (link.getAttribute("href") || "").replace("#", "");
         navigateTo(sectionId);
 
         const sidebarToggle = document.getElementById("sidebar-toggle");
+
         if (sidebarToggle) {
           sidebarToggle.checked = false;
         }
@@ -1553,19 +1550,26 @@
       });
     });
 
-    const searchInput = document.querySelector('input[type="search"], .search-wrapper input, .topbar input');
+    const searchInput = document.querySelector(
+      'input[type="search"], .search-wrapper input, .topbar input'
+    );
+
     if (searchInput) {
       searchInput.addEventListener("input", (event) => {
         const term = event.target.value.toLowerCase().trim();
-        const searchableElements = document.querySelectorAll("#menu-items-table-body tr, .digital-menu-card");
+        const searchableElements = document.querySelectorAll(
+          "#menu-items-table-body tr, .digital-menu-card"
+        );
 
-        searchableElements.forEach((el) => {
-          const text = el.textContent.toLowerCase();
-          el.style.display = text.includes(term) ? "" : "none !important";
+        searchableElements.forEach((element) => {
+          const text = element.textContent.toLowerCase();
+
           if (text.includes(term)) {
-            el.classList.remove("hidden-by-search");
+            element.style.display = "";
+            element.classList.remove("hidden-by-search");
           } else {
-            el.classList.add("hidden-by-search");
+            element.style.display = "none";
+            element.classList.add("hidden-by-search");
           }
         });
       });

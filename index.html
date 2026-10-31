@@ -1,853 +1,866 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="MenuPro restaurant menu management dashboard"
-    />
-    <title>MenuPro Dashboard</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MenuPro restaurant menu management dashboard">
+  <title>MenuPro Dashboard</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="login-overlay" id="login-overlay">
-      <div class="login-card">
-        <div class="login-brand">
-          <span aria-hidden="true">📋</span>
-          <span>MenuPro</span>
-        </div>
-        <p class="eyebrow" data-i18n="restaurantManagement">Restaurant management</p>
-        <h1 data-i18n="welcomeBack">Welcome back</h1>
-        <p class="login-subtitle" data-i18n="loginSubtitle">Sign in to manage your menu, inventory, and reports.</p>
-        <form id="login-form">
-          <label class="form-field">
-            <span data-i18n="email">Email</span>
-            <input id="login-email" name="email" type="email" autocomplete="email" placeholder="manager@menupro.com" required />
-          </label>
-          <label class="form-field">
-            <span data-i18n="password">Password</span>
-            <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required />
-          </label>
-          <label class="form-field">
-            <span data-i18n="role">Role</span>
-            <select id="login-role" name="role" required>
-              <option value="Admin">Admin</option>
-              <option value="Manager" selected>Manager</option>
-              <option value="Staff">Staff</option>
-            </select>
-          </label>
-          <button class="primary-button login-button" type="submit" data-i18n="login">Login</button>
-        </form>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-card">
+      <div class="login-brand">
+        <span aria-hidden="true">📋</span>
+        <span>MenuPro</span>
       </div>
+      <p class="eyebrow" data-i18n="restaurantManagement">Restaurant management</p>
+      <h1 data-i18n="welcomeBack">Welcome back</h1>
+      <p class="login-subtitle" data-i18n="loginSubtitle">Sign in to manage your menu, inventory, and reports.</p>
+
+      <form id="login-form">
+        <label class="form-field">
+          <span data-i18n="email">Email</span>
+          <input id="login-email" name="email" type="email" autocomplete="email" placeholder="manager@menupro.com" required>
+        </label>
+
+        <label class="form-field">
+          <span data-i18n="password">Password</span>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+        </label>
+
+        <label class="form-field">
+          <span data-i18n="role">Role</span>
+          <select id="login-role" name="role" required>
+            <option value="Admin">Admin</option>
+            <option value="Manager" selected>Manager</option>
+            <option value="Staff">Staff</option>
+          </select>
+        </label>
+
+        <button class="primary-button login-button" type="submit" data-i18n="login">Login</button>
+      </form>
     </div>
+  </div>
 
-    <input class="sidebar-toggle" type="checkbox" id="sidebar-toggle" />
+  <input class="sidebar-toggle" type="checkbox" id="sidebar-toggle">
 
-    <div class="app-shell" id="app-shell">
-      <aside class="sidebar" aria-label="Primary navigation">
-        <div class="brand">
-          <span aria-hidden="true">📋</span>
-          <span>MenuPro</span>
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <span aria-hidden="true">📋</span>
+        <span>MenuPro</span>
+      </div>
+
+      <nav>
+        <p class="nav-label">Workspace</p>
+        <ul class="nav-list nav-links">
+          <li>
+            <a class="nav-link active" href="#dashboard">
+              <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+              <span data-i18n="dashboard">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#categories">
+              <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+              <span data-i18n="categories">Categories</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#items">
+              <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+              <span data-i18n="menuItems">Menu Items</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#digital-menu">
+              <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+              <span data-i18n="digitalMenu">Digital Menu</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#pricing">
+              <i class="fa-solid fa-tags" aria-hidden="true"></i>
+              <span data-i18n="pricing">Pricing</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#inventory">
+              <i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i>
+              <span data-i18n="inventory">Inventory</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#analytics">
+              <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+              <span data-i18n="analytics">Analytics</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#reports">
+              <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+              <span data-i18n="reports">Reports</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#versioning">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span data-i18n="versioning">Versioning</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="#qr-menu">
+              <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+              <span data-i18n="qrMenu">QR Menu</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <label class="sidebar-overlay" for="sidebar-toggle" aria-label="Close menu"></label>
+
+    <main class="main-content">
+      <header class="topbar">
+        <label class="menu-button" for="sidebar-toggle" aria-label="Open menu">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </label>
+
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" placeholder="Search..." aria-label="Search" data-i18n="search">
         </div>
 
-        <nav>
-          <p class="nav-label">Workspace</p>
-          <ul class="nav-list nav-links">
-            <li>
-              <a class="nav-link active" href="#dashboard" data-section-link="dashboard">
-                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
-                <span data-i18n="dashboard">Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#categories">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-                <span data-i18n="categories">Categories</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#items" data-section-link="items">
-                <i class="fa-solid fa-utensils" aria-hidden="true"></i>
-                <span data-i18n="menuItems">Menu Items</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#digital-menu" data-section-link="digital-menu">
-                <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
-                <span data-i18n="digitalMenu">Digital Menu</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#pricing">
-                <i class="fa-solid fa-tags" aria-hidden="true"></i>
-                <span data-i18n="pricing">Pricing</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#inventory">
-                <i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i>
-                <span data-i18n="inventory">Inventory</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#analytics">
-                <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
-                <span data-i18n="analytics">Analytics</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#reports">
-                <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
-                <span data-i18n="reports">Reports</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#versioning">
-                <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
-                <span data-i18n="versioning">Versioning</span>
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" href="#qr-menu">
-                <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
-                <span data-i18n="qrMenu">QR Menu</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+        <div class="topbar-actions">
+          <select id="language-select" class="language-select" aria-label="Select language">
+            <option value="en" data-i18n="english">English</option>
+            <option value="es" data-i18n="spanish">Español</option>
+            <option value="fr" data-i18n="french">Français</option>
+          </select>
 
-      <label class="sidebar-overlay" for="sidebar-toggle" aria-label="Close menu"></label>
+          <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Enable dark mode" title="Enable dark mode">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
 
-      <main class="main-content">
-        <header class="topbar">
-          <label class="menu-button" for="sidebar-toggle" aria-label="Open menu">
-            <i class="fa-solid fa-bars" aria-hidden="true"></i>
-          </label>
+          <button class="icon-button" type="button" aria-label="Notifications">
+            <i class="fa-regular fa-bell" aria-hidden="true"></i>
+            <span class="notification-dot"></span>
+          </button>
 
-          <div class="search-wrapper">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input type="search" placeholder="Search..." aria-label="Search" data-i18n="search" />
+          <button class="profile-button" type="button" aria-label="Open Manager profile menu">
+            <span class="avatar">M</span>
+            <span id="profile-role">Manager</span>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+
+          <button class="icon-button" id="logout-button" type="button" aria-label="Log out" title="Log out">
+            <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="page-content" id="dashboard">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow" data-i18n="dashboard">Dashboard</p>
+            <h1 data-i18n="dashboardWelcome">Welcome back, Manager! Here's your menu overview for today.</h1>
+            <p class="subtitle" data-i18n="dashboardSubtitle">Keep your menu fresh, organized, and ready to serve.</p>
           </div>
 
-          <div class="topbar-actions">
-            <select id="language-select" class="language-select" aria-label="Select language">
-              <option value="en" data-i18n="english">English</option>
-              <option value="es" data-i18n="spanish">Español</option>
-              <option value="fr" data-i18n="french">Français</option>
-            </select>
-            <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Enable dark mode" title="Enable dark mode">
-              <i class="fa-solid fa-moon" aria-hidden="true"></i>
-            </button>
-            <button class="icon-button" type="button" aria-label="Notifications">
-              <i class="fa-regular fa-bell" aria-hidden="true"></i>
-              <span class="notification-dot"></span>
-            </button>
-            <button class="profile-button" type="button" aria-label="Open Manager profile menu">
-              <span class="avatar">M</span>
-              <span id="profile-role">Manager</span>
-              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-            </button>
-            <button class="icon-button" id="logout-button" type="button" aria-label="Log out" title="Log out">
-              <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
-            </button>
-          </div>
-        </header>
+          <button class="primary-button" type="button" data-open-item-modal>
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            <span data-i18n="addMenuItem">Add menu item</span>
+          </button>
+        </div>
 
-        <section class="page-content" id="dashboard">
-          <div class="page-heading">
-            <div>
-              <p class="eyebrow" data-i18n="dashboard">Dashboard</p>
-              <h1 data-i18n="dashboardWelcome">Welcome back, Manager! Here's your menu overview for today.</h1>
-              <p class="subtitle" data-i18n="dashboardSubtitle">Keep your menu fresh, organized, and ready to serve.</p>
-            </div>
-            <button class="primary-button" type="button" data-open-item-modal>
-              <i class="fa-solid fa-plus" aria-hidden="true"></i>
-              <span data-i18n="addMenuItem">Add menu item</span>
-            </button>
-          </div>
-
-          <div class="metric-grid" aria-label="Menu summary">
-            <article class="metric-card">
-              <div class="metric-icon">
-                <i class="fa-solid fa-utensils" aria-hidden="true"></i>
-              </div>
-              <div>
-                <p class="metric-label" data-i18n="totalItems">Total Items</p>
-                <p class="metric-value" id="dashboard-total-items">0</p>
-                <p class="metric-change positive">
-                  <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
-                  12% this month
-                </p>
-              </div>
-            </article>
-
-            <article class="metric-card">
-              <div class="metric-icon">
-                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-              </div>
-              <div>
-                <p class="metric-label" data-i18n="activeCategories">Active Categories</p>
-                <p class="metric-value" id="dashboard-active-categories">0</p>
-                <p class="metric-change">Across your menu</p>
-              </div>
-            </article>
-
-            <article class="metric-card metric-card-warning">
-              <div class="metric-icon">
-                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-              </div>
-              <div>
-                <p class="metric-label" data-i18n="lowStockAlerts">Low Stock Alerts</p>
-                <p class="metric-value" id="dashboard-low-stock-alerts">0</p>
-                <p class="metric-change warning-text">Needs your attention</p>
-              </div>
-            </article>
-
-            <article class="metric-card">
-              <div class="metric-icon">
-                <i class="fa-solid fa-star" aria-hidden="true"></i>
-              </div>
-              <div>
-                <p class="metric-label" data-i18n="popularItem">Popular Item</p>
-                <p class="metric-value metric-value-text" id="dashboard-popular-item">None</p>
-                <p class="metric-change positive">Top seller this week</p>
-              </div>
-            </article>
-          </div>
-
-          <div class="dashboard-grid">
-            <section class="dashboard-panel" aria-labelledby="popular-items-title">
-              <div class="panel-heading">
-                <div>
-                  <p class="eyebrow">Sales performance</p>
-                  <h2 id="popular-items-title">Popular Items This Week</h2>
-                </div>
-                <button class="text-button" type="button">View all</button>
-              </div>
-
-              <div class="popular-item-list">
-                <article class="popular-item">
-                  <img
-                    class="item-thumbnail"
-                    src="https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=80"
-                    alt="Garlic Bread"
-                  />
-                  <div class="item-details">
-                    <div class="item-title-row">
-                      <h3>Garlic Bread</h3>
-                      <span>$6.50</span>
-                    </div>
-                    <div class="sales-row">
-                      <div class="progress-track">
-                        <div class="progress-bar" style="--progress: 86%"></div>
-                      </div>
-                      <span>86%</span>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="popular-item">
-                  <img
-                    class="item-thumbnail"
-                    src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=80"
-                    alt="Spaghetti Carbonara"
-                  />
-                  <div class="item-details">
-                    <div class="item-title-row">
-                      <h3>Spaghetti Carbonara</h3>
-                      <span>$16.95</span>
-                    </div>
-                    <div class="sales-row">
-                      <div class="progress-track">
-                        <div class="progress-bar" style="--progress: 72%"></div>
-                      </div>
-                      <span>72%</span>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="popular-item">
-                  <img
-                    class="item-thumbnail"
-                    src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=80"
-                    alt="Chocolate Dessert"
-                  />
-                  <div class="item-details">
-                    <div class="item-title-row">
-                      <h3>Chocolate Dessert</h3>
-                      <span>$8.25</span>
-                    </div>
-                    <div class="sales-row">
-                      <div class="progress-track">
-                        <div class="progress-bar" style="--progress: 58%"></div>
-                      </div>
-                      <span>58%</span>
-                    </div>
-                  </div>
-                </article>
-              </div>
-            </section>
-
-            <section class="dashboard-panel" aria-labelledby="inventory-alerts-title">
-              <div class="panel-heading">
-                <div>
-                  <p class="eyebrow">Stock monitoring</p>
-                  <h2 id="inventory-alerts-title">Inventory Alerts</h2>
-                </div>
-                <button class="text-button" type="button">Manage</button>
-              </div>
-
-              <div class="inventory-list">
-                <div class="inventory-alert">
-                  <div class="inventory-icon">
-                    <i class="fa-solid fa-box-open" aria-hidden="true"></i>
-                  </div>
-                  <div>
-                    <h3>Pancetta</h3>
-                    <p>Low Stock (1.2 kg)</p>
-                  </div>
-                  <span class="status-badge">Low stock</span>
-                </div>
-                <div class="inventory-alert">
-                  <div class="inventory-icon">
-                    <i class="fa-solid fa-box-open" aria-hidden="true"></i>
-                  </div>
-                  <div>
-                    <h3>Garlic</h3>
-                    <p>Low Stock (0.8 kg)</p>
-                  </div>
-                  <span class="status-badge">Low stock</span>
-                </div>
-                <div class="inventory-alert">
-                  <div class="inventory-icon">
-                    <i class="fa-solid fa-box-open" aria-hidden="true"></i>
-                  </div>
-                  <div>
-                    <h3>Parmesan Cheese</h3>
-                    <p>Low Stock (2.1 kg)</p>
-                  </div>
-                  <span class="status-badge">Low stock</span>
-                </div>
-              </div>
-
-              <div class="distribution-chart">
-                <div class="chart-heading">
-                  <h2>Category Distribution</h2>
-                  <button class="icon-button" type="button" aria-label="Category distribution options">
-                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
-                  </button>
-                </div>
-                <div class="chart-content">
-                  <div class="donut-chart" role="img" aria-label="Category distribution: Main Course 45 percent, Appetizers 30 percent, Desserts 25 percent">
-                    <span>148<br /><small>items</small></span>
-                  </div>
-                  <ul class="chart-legend">
-                    <li><span class="legend-dot main-course"></span>Main Course <strong>45%</strong></li>
-                    <li><span class="legend-dot appetizers"></span>Appetizers <strong>30%</strong></li>
-                    <li><span class="legend-dot desserts"></span>Desserts <strong>25%</strong></li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section class="page-content categories-section" id="categories" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="menuOrganization">Menu organization</p>
-              <h1 data-i18n="categories">Categories</h1>
-              <p class="subtitle">Organize your menu items into clear, easy-to-browse groups.</p>
-            </div>
-            <button class="primary-button" type="button" data-open-category-modal>
-              <i class="fa-solid fa-plus" aria-hidden="true"></i>
-              <span data-i18n="addCategory">Add Category</span>
-            </button>
-          </div>
-
-          <div class="table-card">
-            <div class="table-toolbar">
-              <h2>All Categories</h2>
-              <span class="table-count" id="category-count">0 categories</span>
-            </div>
-            <div class="table-scroll">
-              <table class="items-table categories-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Category Icon</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Display Order</th>
-                    <th scope="col" class="actions-column">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="categories-table-body"></tbody>
-              </table>
-            </div>
-            <p class="empty-table-message" id="empty-categories-message" hidden>
-              No categories yet. Add your first category to get started.
-            </p>
-          </div>
-        </section>
-
-        <section class="page-content" id="inventory" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="stockManagement">Stock management</p>
-              <h1 data-i18n="inventory">Inventory</h1>
-              <p class="subtitle">Keep ingredient quantities and reorder points up to date.</p>
-            </div>
-          </div>
-          <div class="table-card">
-            <div class="table-toolbar">
-              <h2>Ingredient Inventory</h2>
-              <span class="table-count" id="inventory-count">0 ingredients</span>
-            </div>
-            <div class="table-scroll">
-              <table class="items-table inventory-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Ingredient Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Unit</th>
-                    <th scope="col">Reorder Level</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" class="actions-column">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="inventory-table-body"></tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section class="page-content" id="pricing" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="pricingManagement">Pricing management</p>
-              <h1 data-i18n="pricing">Pricing</h1>
-              <p class="subtitle">Set temporary promotional prices for your menu items.</p>
-            </div>
-          </div>
-          <div class="table-card">
-            <div class="table-toolbar">
-              <h2>Menu Item Pricing</h2>
-              <span class="table-count" id="pricing-count">0 items</span>
-            </div>
-            <div class="table-scroll">
-              <table class="items-table pricing-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Menu Item</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Base Price</th>
-                    <th scope="col">Special Discount Price</th>
-                    <th scope="col" class="actions-column">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="pricing-table-body"></tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section class="page-content" id="analytics" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="performanceInsights">Performance insights</p>
-              <h1 data-i18n="analytics">Analytics</h1>
-              <p class="subtitle">Understand how your menu is performing this month.</p>
-            </div>
-          </div>
-          <div class="analytics-grid">
-            <article class="chart-card">
-              <div class="chart-card-heading">
-                <div>
-                  <p class="eyebrow">Revenue performance</p>
-                  <h2>Revenue by Category</h2>
-                </div>
-                <span class="chart-period">This month</span>
-              </div>
-              <div class="chart-container">
-                <canvas id="salesChart" aria-label="Bar chart showing revenue by category"></canvas>
-              </div>
-            </article>
-            <article class="chart-card">
-              <div class="chart-card-heading">
-                <div>
-                  <p class="eyebrow">Menu engagement</p>
-                  <h2>Most Popular Items</h2>
-                </div>
-                <span class="chart-period">This month</span>
-              </div>
-              <div class="chart-container chart-container-doughnut">
-                <canvas id="popularChart" aria-label="Doughnut chart showing most popular items"></canvas>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="page-content" id="reports" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="exportCenter">Export center</p>
-              <h1 data-i18n="reports">Reports</h1>
-              <p class="subtitle">Generate useful snapshots of your menu and inventory data.</p>
-            </div>
-          </div>
-          <div class="reports-grid">
-            <article class="report-card">
-              <div class="report-icon">
-                <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
-              </div>
-              <div>
-                <h2>Menu PDF Report</h2>
-                <p>Prepare a printable summary of your current menu.</p>
-              </div>
-              <button class="primary-button" type="button" data-report-action="menu-pdf">
-                Generate Menu PDF Report
-              </button>
-            </article>
-            <article class="report-card">
-              <div class="report-icon">
-                <i class="fa-solid fa-file-csv" aria-hidden="true"></i>
-              </div>
-              <div>
-                <h2>Inventory CSV Report</h2>
-                <p>Export ingredient quantities for your operations team.</p>
-              </div>
-              <button class="primary-button" type="button" data-report-action="inventory-csv">
-                Generate Inventory CSV Report
-              </button>
-            </article>
-          </div>
-          <div class="report-summary">
-            <div class="summary-icon">
-              <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+        <div class="metric-grid" aria-label="Menu summary">
+          <article class="metric-card">
+            <div class="metric-icon">
+              <i class="fa-solid fa-utensils" aria-hidden="true"></i>
             </div>
             <div>
-              <p class="eyebrow">Current summary</p>
-              <h2>Menu performance at a glance</h2>
-              <div class="summary-values">
-                <p>Total revenue <strong id="report-total-revenue">$0.00</strong></p>
-                <p>Total active items <strong id="report-active-items">0</strong></p>
-              </div>
+              <p class="metric-label" data-i18n="totalItems">Total Items</p>
+              <p class="metric-value" id="dashboard-total-items">0</p>
+              <p class="metric-change positive">
+                <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                <span data-i18n="twelvePercentThisMonth">12% this month</span>
+              </p>
             </div>
-          </div>
-        </section>
-
-        <section class="page-content" id="versioning" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="auditHistory">Audit history</p>
-              <h1 data-i18n="versioning">Menu Versioning</h1>
-              <p class="subtitle">Review changes made to your menu and category data.</p>
-            </div>
-          </div>
-          <div class="table-card">
-            <div class="table-toolbar">
-              <h2>Change Log</h2>
-              <span class="table-count" id="versioning-count">0 entries</span>
-            </div>
-            <div class="table-scroll">
-              <table class="items-table versioning-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">User Role</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="versioning-table-body"></tbody>
-              </table>
-            </div>
-            <p class="empty-table-message" id="empty-versioning-message">
-              No menu changes have been recorded yet.
-            </p>
-          </div>
-        </section>
-
-        <section class="page-content digital-menu-section" id="digital-menu" hidden>
-          <div class="digital-menu-heading">
-            <div>
-              <p class="eyebrow" data-i18n="customerMenu">Customer menu</p>
-              <h1 data-i18n="ourMenu">Our Menu</h1>
-              <p class="subtitle" data-i18n="digitalMenuSubtitle">Freshly prepared favorites, made for every appetite.</p>
-            </div>
-            <span class="digital-menu-note">
-              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-              <span data-i18n="availableToOrder">Available to order</span>
-            </span>
-          </div>
-
-          <article class="daily-special-card" aria-labelledby="daily-special-title">
-            <div class="daily-special-content">
-              <p class="eyebrow" data-i18n="dailySpecial">Daily special</p>
-              <h2 id="daily-special-title">Chef's choice</h2>
-              <p id="daily-special-description">A fresh favorite selected from today's available menu.</p>
-            </div>
-            <strong id="daily-special-price">$0.00</strong>
           </article>
 
-          <div class="category-pills" id="digital-menu-categories" aria-label="Filter menu by category"></div>
-          <div class="digital-menu-grid" id="digital-menu-grid"></div>
-          <p class="digital-menu-empty" id="digital-menu-empty" hidden>
-            No menu items are available in this category.
+          <article class="metric-card">
+            <div class="metric-icon">
+              <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p class="metric-label" data-i18n="activeCategories">Active Categories</p>
+              <p class="metric-value" id="dashboard-active-categories">0</p>
+              <p class="metric-change" data-i18n="acrossYourMenu">Across your menu</p>
+            </div>
+          </article>
+
+          <article class="metric-card metric-card-warning">
+            <div class="metric-icon">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p class="metric-label" data-i18n="lowStockAlerts">Low Stock Alerts</p>
+              <p class="metric-value" id="dashboard-low-stock-alerts">0</p>
+              <p class="metric-change warning-text" data-i18n="needsYourAttention">Needs your attention</p>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-icon">
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p class="metric-label" data-i18n="popularItem">Popular Item</p>
+              <p class="metric-value metric-value-text" id="dashboard-popular-item">None</p>
+              <p class="metric-change positive" data-i18n="topSellerThisWeek">Top seller this week</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="dashboard-panel" aria-labelledby="popular-items-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow" data-i18n="salesPerformance">Sales performance</p>
+                <h2 id="popular-items-title" data-i18n="popularItemsThisWeek">Popular Items This Week</h2>
+              </div>
+              <button class="text-button" type="button" data-i18n="viewAll">View all</button>
+            </div>
+
+            <div class="popular-item-list">
+              <article class="popular-item">
+                <img class="item-thumbnail" src="https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=80" alt="Garlic Bread">
+                <div class="item-details">
+                  <div class="item-title-row">
+                    <h3>Garlic Bread</h3>
+                    <span>$6.50</span>
+                  </div>
+                  <div class="sales-row">
+                    <div class="progress-track">
+                      <div class="progress-bar" style="--progress: 86%"></div>
+                    </div>
+                    <span>86%</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="popular-item">
+                <img class="item-thumbnail" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=80" alt="Spaghetti Carbonara">
+                <div class="item-details">
+                  <div class="item-title-row">
+                    <h3>Spaghetti Carbonara</h3>
+                    <span>$16.95</span>
+                  </div>
+                  <div class="sales-row">
+                    <div class="progress-track">
+                      <div class="progress-bar" style="--progress: 72%"></div>
+                    </div>
+                    <span>72%</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="popular-item">
+                <img class="item-thumbnail" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=80" alt="Chocolate Dessert">
+                <div class="item-details">
+                  <div class="item-title-row">
+                    <h3>Chocolate Dessert</h3>
+                    <span>$8.25</span>
+                  </div>
+                  <div class="sales-row">
+                    <div class="progress-track">
+                      <div class="progress-bar" style="--progress: 58%"></div>
+                    </div>
+                    <span>58%</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="dashboard-panel" aria-labelledby="inventory-alerts-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow" data-i18n="stockMonitoring">Stock monitoring</p>
+                <h2 id="inventory-alerts-title" data-i18n="inventoryAlerts">Inventory Alerts</h2>
+              </div>
+              <button class="text-button" type="button" data-i18n="manage">Manage</button>
+            </div>
+
+            <div class="inventory-list">
+              <div class="inventory-alert">
+                <div class="inventory-icon">
+                  <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3>Pancetta</h3>
+                  <p>Low Stock (1.2 kg)</p>
+                </div>
+                <span class="status-badge">Low stock</span>
+              </div>
+
+              <div class="inventory-alert">
+                <div class="inventory-icon">
+                  <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3>Garlic</h3>
+                  <p>Low Stock (0.8 kg)</p>
+                </div>
+                <span class="status-badge">Low stock</span>
+              </div>
+
+              <div class="inventory-alert">
+                <div class="inventory-icon">
+                  <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3>Parmesan Cheese</h3>
+                  <p>Low Stock (2.1 kg)</p>
+                </div>
+                <span class="status-badge">Low stock</span>
+              </div>
+            </div>
+
+            <div class="distribution-chart">
+              <div class="chart-heading">
+                <h2 data-i18n="categoryDistribution">Category Distribution</h2>
+                <button class="icon-button" type="button" aria-label="Category distribution options">
+                  <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <div class="chart-content">
+                <div class="donut-chart" role="img" aria-label="Category distribution">
+                  <span>148<br><small>items</small></span>
+                </div>
+                <ul class="chart-legend">
+                  <li><span class="legend-dot main-course"></span>Main Course <strong>45%</strong></li>
+                  <li><span class="legend-dot appetizers"></span>Appetizers <strong>30%</strong></li>
+                  <li><span class="legend-dot desserts"></span>Desserts <strong>25%</strong></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="page-content categories-section" id="categories" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="menuOrganization">Menu organization</p>
+            <h1 data-i18n="categories">Categories</h1>
+            <p class="subtitle">Organize your menu items into clear, easy-to-browse groups.</p>
+          </div>
+          <button class="primary-button" type="button" data-open-category-modal>
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            <span data-i18n="addCategory">Add Category</span>
+          </button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h2>All Categories</h2>
+            <span class="table-count" id="category-count">0 categories</span>
+          </div>
+          <div class="table-scroll">
+            <table class="items-table categories-table">
+              <thead>
+                <tr>
+                  <th scope="col">Category Icon</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Display Order</th>
+                  <th scope="col" class="actions-column">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="categories-table-body"></tbody>
+            </table>
+          </div>
+          <p class="empty-table-message" id="empty-categories-message" hidden>
+            No categories yet. Add your first category to get started.
           </p>
-        </section>
+        </div>
+      </section>
 
-        <section class="page-content" id="qr-menu" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="customerAccess">Customer access</p>
-              <h1 data-i18n="qrMenu">QR Code Menu</h1>
-              <p class="subtitle">Let guests scan this code to open the digital menu.</p>
-            </div>
+      <section class="page-content" id="inventory" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="stockManagement">Stock management</p>
+            <h1 data-i18n="inventory">Inventory</h1>
+            <p class="subtitle">Keep ingredient quantities and reorder points up to date.</p>
           </div>
-          <div class="qr-menu-card">
-            <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&amp;data=https%3A%2F%2Fexample.com%2Fmenu"
-              alt="QR code for the MenuPro digital menu"
-              width="220"
-              height="220"
-            />
-          </div>
-        </section>
+        </div>
 
-        <section class="page-content items-section" id="items" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" data-i18n="menuManagement">Menu management</p>
-              <h1 data-i18n="menuItems">Menu Items</h1>
-              <p class="subtitle">Manage the dishes, prices, and availability on your menu.</p>
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h2>Ingredient Inventory</h2>
+            <span class="table-count" id="inventory-count">0 ingredients</span>
+          </div>
+          <div class="table-scroll">
+            <table class="items-table inventory-table">
+              <thead>
+                <tr>
+                  <th scope="col">Ingredient Name</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Unit</th>
+                  <th scope="col">Reorder Level</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" class="actions-column">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-content" id="pricing" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="pricingManagement">Pricing management</p>
+            <h1 data-i18n="pricing">Pricing</h1>
+            <p class="subtitle">Set temporary promotional prices for your menu items.</p>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h2>Menu Item Pricing</h2>
+            <span class="table-count" id="pricing-count">0 items</span>
+          </div>
+          <div class="table-scroll">
+            <table class="items-table pricing-table">
+              <thead>
+                <tr>
+                  <th scope="col">Menu Item</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Base Price</th>
+                  <th scope="col">Special Discount Price</th>
+                  <th scope="col" class="actions-column">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="pricing-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-content" id="analytics" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="performanceInsights">Performance insights</p>
+            <h1 data-i18n="analytics">Analytics</h1>
+            <p class="subtitle">Understand how your menu is performing this month.</p>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <article class="chart-card">
+            <div class="chart-card-heading">
+              <div>
+                <p class="eyebrow">Revenue performance</p>
+                <h2>Revenue by Category</h2>
+              </div>
+              <span class="chart-period">This month</span>
             </div>
-            <button class="primary-button" type="button" data-open-item-modal>
-              <i class="fa-solid fa-plus" aria-hidden="true"></i>
-              <span data-i18n="addNewItem">Add New Item</span>
+            <div class="chart-container">
+              <canvas id="salesChart" aria-label="Bar chart showing revenue by category"></canvas>
+            </div>
+          </article>
+
+          <article class="chart-card">
+            <div class="chart-card-heading">
+              <div>
+                <p class="eyebrow">Menu engagement</p>
+                <h2>Most Popular Items</h2>
+              </div>
+              <span class="chart-period">This month</span>
+            </div>
+            <div class="chart-container chart-container-doughnut">
+              <canvas id="popularChart" aria-label="Doughnut chart showing most popular items"></canvas>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page-content" id="reports" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="exportCenter">Export center</p>
+            <h1 data-i18n="reports">Reports</h1>
+            <p class="subtitle">Generate useful snapshots of your menu and inventory data.</p>
+          </div>
+        </div>
+
+        <div class="reports-grid">
+          <article class="report-card">
+            <div class="report-icon">
+              <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h2>Menu PDF Report</h2>
+              <p>Prepare a printable summary of your current menu.</p>
+            </div>
+            <button class="primary-button" type="button" data-report-action="menu-pdf">
+              Generate Menu PDF Report
             </button>
-          </div>
+          </article>
 
-          <div class="table-card">
-            <div class="table-toolbar">
-              <h2>All Menu Items</h2>
-              <span class="table-count" id="item-count">0 items</span>
+          <article class="report-card">
+            <div class="report-icon">
+              <i class="fa-solid fa-file-csv" aria-hidden="true"></i>
             </div>
-            <div class="table-scroll">
-              <table class="items-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Dietary Tags</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" class="actions-column">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="menu-items-table-body"></tbody>
-              </table>
+            <div>
+              <h2>Inventory CSV Report</h2>
+              <p>Export ingredient quantities for your operations team.</p>
             </div>
-            <p class="empty-table-message" id="empty-items-message" hidden>
-              No menu items yet. Add your first item to get started.
-            </p>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <div class="modal-backdrop" id="inventory-modal" hidden>
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="inventory-modal-title">
-        <div class="modal-heading">
-          <div>
-            <p class="eyebrow">Stock management</p>
-            <h2 id="inventory-modal-title">Update Stock</h2>
-          </div>
-          <button class="modal-close" type="button" data-close-inventory-modal aria-label="Close dialog">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          </button>
-        </div>
-        <form id="inventory-form">
-          <input type="hidden" id="inventory-id" name="inventory-id" />
-          <div class="form-grid">
-            <label class="form-field form-field-wide">
-              <span>Ingredient Name</span>
-              <input id="inventory-ingredient" name="ingredient_name" type="text" readonly />
-            </label>
-            <label class="form-field">
-              <span>Quantity <strong>*</strong></span>
-              <input id="inventory-quantity" name="quantity" type="number" min="0" step="0.1" required />
-            </label>
-            <label class="form-field">
-              <span>Unit</span>
-              <select id="inventory-unit" name="unit">
-                <option value="kg">kg</option>
-                <option value="liters">liters</option>
-                <option value="pcs">pcs</option>
-              </select>
-            </label>
-          </div>
-          <div class="modal-actions">
-            <button class="secondary-button" type="button" data-close-inventory-modal>Cancel</button>
-            <button class="primary-button" type="submit">Update Stock</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="modal-backdrop" id="pricing-modal" hidden>
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pricing-modal-title">
-        <div class="modal-heading">
-          <div>
-            <p class="eyebrow">Pricing management</p>
-            <h2 id="pricing-modal-title">Apply Discount</h2>
-          </div>
-          <button class="modal-close" type="button" data-close-pricing-modal aria-label="Close dialog">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          </button>
-        </div>
-        <form id="pricing-form">
-          <input type="hidden" id="pricing-item-id" name="item-id" />
-          <div class="form-grid">
-            <label class="form-field form-field-wide">
-              <span>Menu Item</span>
-              <input id="pricing-item-name" name="item-name" type="text" readonly />
-            </label>
-            <label class="form-field">
-              <span>Base Price</span>
-              <input id="pricing-base-price" name="base-price" type="text" readonly />
-            </label>
-            <label class="form-field">
-              <span>Special Discount Price <strong>*</strong></span>
-              <input id="pricing-discount-price" name="discount-price" type="number" min="0" step="0.01" required />
-            </label>
-          </div>
-          <div class="modal-actions">
-            <button class="secondary-button" type="button" data-close-pricing-modal>Cancel</button>
-            <button class="primary-button" type="submit">Apply Discount</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="modal-backdrop" id="category-modal" hidden>
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="category-modal-title">
-        <div class="modal-heading">
-          <div>
-            <p class="eyebrow">Menu organization</p>
-            <h2 id="category-modal-title">Add Category</h2>
-          </div>
-          <button class="modal-close" type="button" data-close-category-modal aria-label="Close dialog">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          </button>
+            <button class="primary-button" type="button" data-report-action="inventory-csv">
+              Generate Inventory CSV Report
+            </button>
+          </article>
         </div>
 
-        <form id="category-form">
-          <input type="hidden" id="category-id" name="category-id" />
-          <div class="form-grid">
-            <label class="form-field form-field-wide">
-              <span>Name <strong>*</strong></span>
-              <input id="category-name" name="name" type="text" required />
-            </label>
-            <label class="form-field form-field-wide">
-              <span>Description</span>
-              <textarea id="category-description" name="description" rows="3"></textarea>
-            </label>
-            <label class="form-field">
-              <span>Emoji Icon</span>
-              <input id="category-icon" name="icon" type="text" maxlength="8" placeholder="🍕" />
-            </label>
-            <label class="form-field">
-              <span>Display Order <strong>*</strong></span>
-              <input id="category-display-order" name="display_order" type="number" min="1" step="1" required />
-            </label>
+        <div class="report-summary">
+          <div class="summary-icon">
+            <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
           </div>
-          <div class="modal-actions">
-            <button class="secondary-button" type="button" data-close-category-modal>Cancel</button>
-            <button class="primary-button" type="submit">Save Category</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="modal-backdrop" id="item-modal" hidden>
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="item-modal-title">
-        <div class="modal-heading">
           <div>
-            <p class="eyebrow">Menu management</p>
-            <h2 id="item-modal-title">Add New Item</h2>
-          </div>
-          <button class="modal-close" type="button" data-close-item-modal aria-label="Close dialog">
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <form id="menu-item-form">
-          <input type="hidden" id="item-id" name="item-id" />
-          <div class="form-grid">
-            <label class="form-field">
-              <span>Name <strong>*</strong></span>
-              <input id="item-name" name="name" type="text" required />
-            </label>
-            <label class="form-field">
-              <span>Price <strong>*</strong></span>
-              <input id="item-price" name="price" type="number" min="0" step="0.01" required />
-            </label>
-            <label class="form-field form-field-wide">
-              <span>Description</span>
-              <textarea id="item-description" name="description" rows="3"></textarea>
-            </label>
-            <label class="form-field form-field-wide">
-              <span>Image URL</span>
-              <input id="item-image" name="image" type="url" placeholder="https://example.com/image.jpg" />
-            </label>
-            <label class="form-field">
-              <span>Category <strong>*</strong></span>
-              <select id="item-category" name="category_id" required></select>
-            </label>
-            <label class="form-field">
-              <span>Status <strong>*</strong></span>
-              <select id="item-status" name="status" required>
-                <option value="available">Available</option>
-                <option value="limited">Limited</option>
-                <option value="out-of-stock">Out of Stock</option>
-              </select>
-            </label>
-          </div>
-
-          <fieldset class="dietary-fieldset">
-            <legend>Dietary Tags</legend>
-            <div class="checkbox-grid">
-              <label class="checkbox-label"><input type="checkbox" name="dietary_tags" value="vegetarian" /> Vegetarian</label>
-              <label class="checkbox-label"><input type="checkbox" name="dietary_tags" value="vegan" /> Vegan</label>
-              <label class="checkbox-label"><input type="checkbox" name="dietary_tags" value="gluten-free" /> Gluten-Free</label>
-              <label class="checkbox-label"><input type="checkbox" name="dietary_tags" value="dairy-free" /> Dairy-Free</label>
-              <label class="checkbox-label"><input type="checkbox" name="dietary_tags" value="nut-free" /> Nut-Free</label>
+            <p class="eyebrow">Current summary</p>
+            <h2>Menu performance at a glance</h2>
+            <div class="summary-values">
+              <p>Total revenue <strong id="report-total-revenue">$0.00</strong></p>
+              <p>Total active items <strong id="report-active-items">0</strong></p>
             </div>
-          </fieldset>
-
-          <div class="modal-actions">
-            <button class="secondary-button" type="button" data-close-item-modal>Cancel</button>
-            <button class="primary-button" type="submit">Save Item</button>
           </div>
-        </form>
+        </div>
+      </section>
+
+      <section class="page-content" id="versioning" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="auditHistory">Audit history</p>
+            <h1 data-i18n="versioning">Menu Versioning</h1>
+            <p class="subtitle">Review changes made to your menu and category data.</p>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h2>Change Log</h2>
+            <span class="table-count" id="versioning-count">0 entries</span>
+          </div>
+          <div class="table-scroll">
+            <table class="items-table versioning-table">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">User Role</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody id="versioning-table-body"></tbody>
+            </table>
+          </div>
+          <p class="empty-table-message" id="empty-versioning-message">
+            No menu changes have been recorded yet.
+          </p>
+        </div>
+      </section>
+
+      <section class="page-content digital-menu-section" id="digital-menu" hidden>
+        <div class="digital-menu-heading">
+          <div>
+            <p class="eyebrow" data-i18n="customerMenu">Customer menu</p>
+            <h1 data-i18n="ourMenu">Our Menu</h1>
+            <p class="subtitle" data-i18n="digitalMenuSubtitle">Freshly prepared favorites, made for every appetite.</p>
+          </div>
+          <span class="digital-menu-note">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <span data-i18n="availableToOrder">Available to order</span>
+          </span>
+        </div>
+
+        <article class="daily-special-card" aria-labelledby="daily-special-title">
+          <div class="daily-special-content">
+            <p class="eyebrow" data-i18n="dailySpecial">Daily special</p>
+            <h2 id="daily-special-title">Chef's choice</h2>
+            <p id="daily-special-description">A fresh favorite selected from today's available menu.</p>
+          </div>
+          <strong id="daily-special-price">$0.00</strong>
+        </article>
+
+        <div class="category-pills" id="digital-menu-categories" aria-label="Filter menu by category"></div>
+        <div class="digital-menu-grid" id="digital-menu-grid"></div>
+        <p class="digital-menu-empty" id="digital-menu-empty" hidden>
+          No menu items are available in this category.
+        </p>
+      </section>
+
+      <section class="page-content" id="qr-menu" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="customerAccess">Customer access</p>
+            <h1 data-i18n="qrMenu">QR Code Menu</h1>
+            <p class="subtitle">Let guests scan this code to open the digital menu.</p>
+          </div>
+        </div>
+
+        <div class="qr-menu-card">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&amp;data=https%3A%2F%2Fexample.com%2Fmenu" alt="QR code for the MenuPro digital menu" width="220" height="220">
+        </div>
+      </section>
+
+      <section class="page-content items-section" id="items" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="menuManagement">Menu management</p>
+            <h1 data-i18n="menuItems">Menu Items</h1>
+            <p class="subtitle">Manage the dishes, prices, and availability on your menu.</p>
+          </div>
+
+          <button class="primary-button" type="button" data-open-item-modal>
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            <span data-i18n="addNewItem">Add New Item</span>
+          </button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h2>All Menu Items</h2>
+            <span class="table-count" id="item-count">0 items</span>
+          </div>
+          <div class="table-scroll">
+            <table class="items-table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Dietary Tags</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" class="actions-column">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="menu-items-table-body"></tbody>
+            </table>
+          </div>
+          <p class="empty-table-message" id="empty-items-message" hidden>
+            No menu items yet. Add your first item to get started.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="inventory-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="inventory-modal-title">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">Stock management</p>
+          <h2 id="inventory-modal-title">Update Stock</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-inventory-modal aria-label="Close dialog">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
       </div>
+
+      <form id="inventory-form">
+        <input type="hidden" id="inventory-id" name="inventory-id">
+        <div class="form-grid">
+          <label class="form-field form-field-wide">
+            <span>Ingredient Name</span>
+            <input id="inventory-ingredient" name="ingredient_name" type="text" readonly>
+          </label>
+          <label class="form-field">
+            <span>Quantity <strong>*</strong></span>
+            <input id="inventory-quantity" name="quantity" type="number" min="0" step="0.1" required>
+          </label>
+          <label class="form-field">
+            <span>Unit</span>
+            <select id="inventory-unit" name="unit">
+              <option value="kg">kg</option>
+              <option value="liters">liters</option>
+              <option value="pcs">pcs</option>
+            </select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-button" type="button" data-close-inventory-modal>Cancel</button>
+          <button class="primary-button" type="submit">Update Stock</button>
+        </div>
+      </form>
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+
+  <div class="modal-backdrop" id="pricing-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pricing-modal-title">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">Pricing management</p>
+          <h2 id="pricing-modal-title">Apply Discount</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-pricing-modal aria-label="Close dialog">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <form id="pricing-form">
+        <input type="hidden" id="pricing-item-id" name="item-id">
+        <div class="form-grid">
+          <label class="form-field form-field-wide">
+            <span>Menu Item</span>
+            <input id="pricing-item-name" name="item-name" type="text" readonly>
+          </label>
+          <label class="form-field">
+            <span>Base Price</span>
+            <input id="pricing-base-price" name="base-price" type="text" readonly>
+          </label>
+          <label class="form-field">
+            <span>Special Discount Price <strong>*</strong></span>
+            <input id="pricing-discount-price" name="discount-price" type="number" min="0" step="0.01" required>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-button" type="button" data-close-pricing-modal>Cancel</button>
+          <button class="primary-button" type="submit">Apply Discount</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="category-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="category-modal-title">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">Menu organization</p>
+          <h2 id="category-modal-title">Add Category</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-category-modal aria-label="Close dialog">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <form id="category-form">
+        <input type="hidden" id="category-id" name="category-id">
+        <div class="form-grid">
+          <label class="form-field form-field-wide">
+            <span>Name <strong>*</strong></span>
+            <input id="category-name" name="name" type="text" required>
+          </label>
+          <label class="form-field form-field-wide">
+            <span>Description</span>
+            <textarea id="category-description" name="description" rows="3"></textarea>
+          </label>
+          <label class="form-field">
+            <span>Emoji Icon</span>
+            <input id="category-icon" name="icon" type="text" maxlength="8" placeholder="🍕">
+          </label>
+          <label class="form-field">
+            <span>Display Order <strong>*</strong></span>
+            <input id="category-display-order" name="display_order" type="number" min="1" step="1" required>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-button" type="button" data-close-category-modal>Cancel</button>
+          <button class="primary-button" type="submit">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="item-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="item-modal-title">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">Menu management</p>
+          <h2 id="item-modal-title">Add New Item</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-item-modal aria-label="Close dialog">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <form id="menu-item-form">
+        <input type="hidden" id="item-id" name="item-id">
+
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Name <strong>*</strong></span>
+            <input id="item-name" name="name" type="text" required>
+          </label>
+
+          <label class="form-field">
+            <span>Price <strong>*</strong></span>
+            <input id="item-price" name="price" type="number" min="0" step="0.01" required>
+          </label>
+
+          <label class="form-field form-field-wide">
+            <span>Description</span>
+            <textarea id="item-description" name="description" rows="3"></textarea>
+          </label>
+
+          <label class="form-field form-field-wide">
+            <span>Image URL</span>
+            <input id="item-image" name="image" type="url" placeholder="https://example.com/image.jpg">
+          </label>
+
+          <label class="form-field">
+            <span>Category <strong>*</strong></span>
+            <select id="item-category" name="category_id" required></select>
+          </label>
+
+          <label class="form-field">
+            <span>Status <strong>*</strong></span>
+            <select id="item-status" name="status" required>
+              <option value="available">Available</option>
+              <option value="limited">Limited</option>
+              <option value="out-of-stock">Out of Stock</option>
+            </select>
+          </label>
+        </div>
+
+        <fieldset class="dietary-fieldset">
+          <legend>Dietary Tags</legend>
+          <div class="checkbox-grid">
+            <label class="checkbox-label">
+              <input type="checkbox" name="dietary_tags" value="vegetarian"> Vegetarian
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="dietary_tags" value="vegan"> Vegan
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="dietary_tags" value="gluten-free"> Gluten-Free
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="dietary_tags" value="dairy-free"> Dairy-Free
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="dietary_tags" value="nut-free"> Nut-Free
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="modal-actions">
+          <button class="secondary-button" type="button" data-close-item-modal>Cancel</button>
+          <button class="primary-button" type="submit">Save Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
